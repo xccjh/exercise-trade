@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//必须执行函数
+		// 
+		// 
+		//变量闭包一
+		// (function() {
+			// var num=10;
+			// function f1() {
+			// 	num=100;
+			// 	console.log(num);
+			// }
+			// f1();
+			// console.log(num);
+		// })();
+		// 
+		// 
+		// 变量闭包二
+		(function() {
+			var num=10;
+			function f1() {
+				num=105;
+				console.log(num);
+			}
+			// f1();
+			console.log(num);
+			window.num=num;
+		}());
+		console.log(num);
+		// 
+		// 
+		// 对象属性
+		// (function() {
+		// 	var obj={};
+		// 	function f1() {
+		// 		num=1000;
+		// 		obj.number=num;
+		// 		console.log(obj.number);
+		// 	}
+		// 	f1();
+		// 	console.log(obj.number);
+		// 	window.obj=obj;
+		// }());
+		// console.log(obj.number);
+		// 
+		// 
+		// 数组
+		// (function() {
+		// 	var arr=[];
+		// 	function f1() {
+		// 		num=100;
+		// 		arr.push(num);
+		// 		console.log(arr[0]);
+		// 	}
+		// 	f1();
+		// 	console.log(arr[0]);
+		// 	window.arr=arr;
+		// }());
+		// console.log(arr[0]);
+	</script>
+</body>
+</html>

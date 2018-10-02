@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.map {
+			width: 800px;
+			height: 600px;
+			background-color: #ccc;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div class="map"></div>
+	<script type="text/javascript">
+//产生随机数
+		(function(window) {
+			function Random() {
+			}
+			Random.prototype.getRandom=function(min,max) {
+				return Math.floor(Math.random()*(max-min)+min);
+			};
+			window.Random=new Random();
+		})(window);
+		//console.log(Random.getRandom(0,5));
+//产生小方块对象
+		(function() {
+			var map=document.querySelector(".map");
+//创建方块构造函数
+			function Food(width,height,color) {
+				this.width=width||20;
+				this.height=height||20;
+				this.x=0;
+				this.y=0;
+				this.color=color||green;
+				this.element=document.createElement("div");
+			}
+//原型方法初始化
+			Food.prototype.init=function(map) {
+				// console.log(map);
+				var div=this.element;
+				div.style.position = 'absolute';
+				div.style.width = this.width+"px";
+				div.style.height = this.height+"px";
+				div.style.backgroundColor = this.color;
+				map.appendChild(div);
+				this.render(map);
+			};
+//原型方法传值随机数
+			Food.prototype.render=function(map) {
+				var x=Random.getRandom(0,map.offsetWidth/this.width)*this.width;
+				var y=Random.getRandom(0,map.offsetHeight/this.height)*this.height;
+				this.x=x;
+				this.y=y;
+				var div=this.element;
+				div.style.left = this.x+"px";
+				div.style.top = this.y+"px";
+			};
+			var fd=new Food(20,20,"green");
+			fd.init(map);
+
+
+
+
+		})();
+	</script>
+</body>
+</html>

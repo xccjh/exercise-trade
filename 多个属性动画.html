@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src=""></script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.dv {
+			width: 200px;
+			height: 100px;
+			background-color: pink;
+			margin-top: 40px;
+			position: absolute;
+			z-index: -2;
+		}
+		.dv1 {
+			width: 200px;
+			height: 100px;
+			background-color: blue;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: -1;
+		}
+/*			div {
+			width: 200px;
+			height: 100px;*/
+			/*background-color: pink;*/
+			/*margin-top: 40px;*/
+	/*		border: 1px solid #000;*/
+			/*position: absolute;*/
+		/*}*/
+		input {
+			z-index: 10;
+		}
+	</style>
+
+</head>
+<body>
+	<input type="button" name="" id="btn1" value="移动到400px">
+	<input type="button" name="" id="btn2" value="移动到800px">
+	<input type="button" name="" id="btn3" value="变长">
+	<input type="button" name="" id="btn4" value="出去">
+	<input type="button" name="" id="btn5" value="回来">
+	<input type="button" name="" id="btn6" value="来回一次">
+	<input type="button" name="" id="btn7" value="转圈">
+	<input type="button" name="" id="btn8" value="变一下走到下面">
+	<div id="dv1" class="dv1"></div>
+	<div id="dv" class="dv"></div>
+	<!-- <input type="button" id="btn" value="设置值" > -->
+	<!-- <div id="dv"></div> -->
+	<script type="text/javascript">
+		document.getElementById("btn1").onclick=function() {
+			animate (document.getElementById("dv"),{"left":400});
+		};
+		document.getElementById("btn2").onclick=function() {
+			animate (document.getElementById("dv"),{"left":800});
+		};
+		document.getElementById("btn3").onclick=function() {
+			animate (document.getElementById("dv"),{"width":800});
+		};
+
+
+		//出去
+		document.getElementById("btn4").onclick=function() {
+			var json={
+				"width":600,
+				"height":300,
+				"top":80,
+				"left":600
+		};
+		// 	var json={
+		// 		"left":600
+		// };
+			animate (document.getElementById("dv"),json);
+		};
+
+
+
+		//回来
+		document.getElementById("btn5").onclick=function() {
+			var json={
+				"width":200,
+				"height":100,
+				"top":20,
+				"left":0
+			};
+			animate (document.getElementById("dv"),json);
+		}
+//来回一次
+		document.getElementById("btn6").onclick=function() {
+			var json={
+				"width":300,
+				"height":600,
+				"top":80,
+				"left":600
+			};
+			animate (document.getElementById("dv"),json,function () {
+				var json={
+					"width":200,
+					"height":100,
+					"top":20,
+					"left":0
+				};
+				animate (document.getElementById("dv"),json);
+			});
+		};
+
+//转圈
+		document.getElementById("btn7").onclick=function() {
+			var json={
+				"left":900
+			};
+			animate (document.getElementById("dv"),json,function () {
+				var json={
+					"top":300
+				};
+				animate (document.getElementById("dv"),json,function () {
+					var json={
+					"left":0
+					};
+					animate (document.getElementById("dv"),json,function () {
+						var json={
+						"top":20
+					};
+					animate (document.getElementById("dv"),json);
+
+					});
+				});
+			});
+		};
+
+//变一下走到下面
+		document.getElementById("btn8").onclick=function() {
+			var json={
+				"width":300,
+				"height":600,
+				"top":80,
+				"left":600,
+				"opacity" : 0.3
+			};
+			animate (document.getElementById("dv1"),json,function () {
+				var json={
+					"width":40,
+					"height":50,
+					"top":0,
+					"left":0,
+					"opacity": 0.8,
+					"zIndex":1000
+				};
+				animate (document.getElementById("dv1"),json);
+			});
+		};
+//
+//
+//
+//
+//匀速动画一个属性动画
+		// function animate(element,attr,target) {
+		// 	clearInterval(element.timeId);
+		// 	element.timeId=setInterval(function() {
+		// 		current=parseInt(getStyle(element,attr));
+		// 		step=10;
+		// 		strp=target-current>0?step:-step;
+		// 		current+=strp;
+		// 		if (Math.abs(target-current)>Math.abs(step)) {
+		// 			element.style[attr]=current+"px";
+		// 		}else {
+		// 			clearInterval(element.timeId);
+		// 			element.style[attr]=target+"px";
+		// 		}
+
+		// 	},10);
+		// };
+
+//获取元素计算后的样式属性值
+		function getStyle(element,attr) {
+			return window.getComputedStyle?window.getComputedStyle(element,null)[attr] : element.currentStyle[attr];
+		};
+
+//匀速动画多个属性动画
+		// function animate(element,json) {
+		// 	clearInterval(element.timeId);
+		// 	element.timeId=setInterval(function() {
+		// 		for (attr in json) {
+		// 			var current=parseInt(getStyle(element,attr));
+		// 			var target=json[attr];
+		// 			step=10;
+		// 			strp=target-current>0?step:-step;
+		// 			current+=strp;
+		// 			if (Math.abs(target-current)>Math.abs(step)) {
+		// 				element.style[attr]=current+"px";
+		// 			}else {
+		// 				clearInterval(element.timeId);
+		// 				element.style[attr]=target+"px";
+		// 			}
+		// 			}
+
+		// 	},10);
+		// };
+//变速动画多个属性动画
+		// function animate(element,json) {
+		// 	clearInterval(element.timeId);
+		// 	element.timeId=setInterval(function() {
+		// 		var flag=true;
+		// 		for (attr in json) {
+		// 			var current=parseInt(getStyle(element,attr));
+		// 			var target=json[attr];
+		// 			step=(target-current)/10;
+		// 			step=step>0?Math.ceil(step):Math.floor(step);
+		// 			current+=step;
+		// 			element.style[attr]=current+"px";
+		// 			if (target!=current) {
+		// 				flag=false;
+		// 			}
+		// 		}
+		// 		if (flag) {
+		// 			clearInterval(element.timeId);
+		// 		}
+		// 		//console.log("目标："+target+",当前："+current+",每次移动部数："+step);
+
+		// 	},10);
+		// };
+		//测试代码
+		// console.log("目标："+target+",当前："+current+",每次移动部数："+step);
+		// 
+		// 
+		// 
+//变速动画多个属性动画增加回调函数实现嵌套转弯
+		// function animate(element,json,fn) {
+		// 	clearInterval(element.timeId);
+		// 	element.timeId=setInterval(function() {
+		// 		var flag=true;
+		// 		for (attr in json) {
+		// 			var current=parseInt(getStyle(element,attr));
+		// 			var target=json[attr];
+		// 			step=(target-current)/10;
+		// 			step=step>0?Math.ceil(step):Math.floor(step);
+		// 			current+=step;
+		// 			element.style[attr]=current+"px";
+		// 			if (target!=current) {
+		// 				flag=false;
+		// 			}
+		// 		}
+		// 			if (flag) {
+		// 				clearInterval(element.timeId);
+		// 			if (fn) {
+		// 				fn();
+		// 			}
+		// 		}
+		// 		//console.log("目标："+target+",当前："+current+",每次移动部数："+step);
+
+		// 	},10);
+		// };
+
+
+//增加透明度和层级
+		function animate(element,json,fn) {
+			clearInterval(element.timeId);
+			element.timeId=setInterval(function() {
+				var flag=true;
+				for (attr in json) {
+					if (attr=="opacity") {
+						var current=(getStyle(element,attr))*100;
+						var target=json[attr]*100;
+						step=(target-current)/10;
+						step=step>0?Math.ceil(step):Math.floor(step);
+						current+=step;
+						element.style[attr]=current/100;
+					}
+					else if (attr=="zIndex") {
+						element.style[attr]=json[attr];
+					}else {
+						var current=parseInt(getStyle(element,attr));
+						var target=json[attr];
+						step=(target-current)/10;
+						step=step>0?Math.ceil(step):Math.floor(step);
+						current+=step;
+						element.style[attr]=current+"px";
+					}
+					if (target!=current) {
+						flag=false;
+					}
+				}
+					if (flag) {
+						clearInterval(element.timeId);
+					if (fn) {
+						fn();
+					}
+				}
+				//console.log("目标："+target+",当前："+current+",每次移动部数："+step);
+
+			},10);
+		};
+		// 
+		// 
+		// 
+// 设置任意标签的任意文本内容
+		// function setInnerText(element,text) {
+		// 	if (typeof element.textContent == "undefined") {
+		// 		element.innerText=text;
+		// 	}else {
+		// 		element.textContent=text;
+		// 	}
+		// }
+		// 
+		// 
+		// 
+//获取任意标签的任意文本内容
+		// function getInnerText(element) {
+		// 	if (typeof element.textContent== "undefined") {
+		// 		return element.innerText;
+		// 	}else {
+		// 		return element.textContent;
+		// 	}
+		// };
+		// 
+		// 
+		// 
+		// 
+//测试
+		// document.getElementById("btn").onclick=function() {
+		// 	setInnerText(document.getElementById("dv"),"这是一个DIV");
+		// 	console.log(getInnerText(document.getElementById("dv")));
+		// };
+
+	</script>
+</body>
+</html>

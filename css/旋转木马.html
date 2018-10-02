@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			margin:100px auto;
+			width: 1200px;
+			height: 450px;
+			background-color: pink;
+			/*position: relative;*/
+		}
+		.slide {
+			width: 600px;
+			height: 400px;
+			position: relative;
+			list-style-type: none;
+			background-color: blue;
+			margin-left:300px;
+		}
+		.slide li {
+/*			float: left;
+*/			/*position: relative;*/
+			list-style: none;
+		}
+		.slide li img {
+			width: 600px;
+			/*height: 300px;*/
+			vertical-align: top;
+			cursor: pointer;
+			position: absolute;
+			/*margin-left: 100px;*/
+		}
+		.arrow {
+			width: 100%;
+			height: 100%;
+			background-color: #bfa;
+			position: relative;
+			/*display: none;*/
+		}
+		.arrLeft {
+			left: 0;
+		}
+		.arrRight {
+			right: 0;
+		}
+		.arrLeft ,
+		.arrRight {
+			width: 100px;
+			height: 100px;
+			/*background-color: green;*/
+			position: absolute;
+			transform: translateY(-50%);
+			top: 68%;
+			right: 0;
+			z-index: 999;
+			line-height: 100px;
+			font-size: 60px;
+			text-align: center;
+			color: rgba(0,0,0,0.8);
+			background-color: rgba(255,255,255,0.3);
+			cursor: pointer;
+		}
+
+	</style>
+	<script type="text/javascript">
+
+		var config = [
+			{
+				"width":200,
+				"top":20,
+				"left":-150,
+				"opacity":0.2,
+				"zIndex":2,
+				"height":100,
+			},
+			{
+				"width":500,
+				"top":60,
+				"left":-200,
+				"opacity":0.6,
+				"zIndex":5,
+				"height":300,
+			},
+			{
+				"width":600,
+				"top":100,
+				"left":0,
+				"opacity":0.8,
+				"zIndex":6,
+				"height":350,
+			},
+			{
+				"width":500,
+				"top":60,
+				"left":300,
+				"opacity":0.6,
+				"zIndex":4,
+				"height":300,
+			},
+			{
+				"width":200,
+				"top":20,
+				"left":550,
+				"opacity":0.2,
+				"zIndex":3,
+				"height":100,
+			},
+		];
+		window.onload=function() {
+			var list = document.getElementById("slide").getElementsByTagName('li');
+//
+			function assign() {
+				for (var i = 0; i < list.length; i++) {
+					animate(list[i].firstElementChild,config[i]);
+				}
+			};
+			assign();
+//
+			document.getElementById("next").onclick=function() {
+				config.push(config.shift());
+				console.log(config);
+				assign();
+			};
+			document.getElementById("prev").onclick=function() {
+				config.unshift(config.pop());
+				assign();
+			};
+//
+			function animate(element,json,fn) {
+				clearInterval(element.timeId);
+				element.timeId=setInterval(function() {
+					var flag=true;
+					for (attr in json) {
+						if (attr=="opacity") {
+							var current=(getStyle(element,attr))*100;
+							var target=json[attr]*100;
+							step=(target-current)/10;
+							step=step>0?Math.ceil(step):Math.floor(step);
+							current+=step;
+							element.style[attr]=current/100;
+						}
+						else if (attr=="zIndex") {
+							element.style[attr]=json[attr];
+						}else {
+							var current=parseInt(getStyle(element,attr));
+							var target=json[attr];
+							step=(target-current)/10;
+							step=step>0?Math.ceil(step):Math.floor(step);
+							current+=step;
+							element.style[attr]=current+"px";
+						}
+						if (target!=current) {
+							flag=false;
+						}
+					}
+						if (flag) {
+							clearInterval(element.timeId);
+						if (fn) {
+							fn();
+						}
+					}
+					//console.log("目标："+target+",当前："+current+",每次移动部数："+step);
+	
+				},10);
+			};
+			function getStyle(element,attr) {
+				return window.getComputedStyle?window.getComputedStyle(element,null)[attr] : element.currentStyle[attr];
+				};
+//
+		document.getElementById("wrap").onmouseover=function() {
+			// document.getElementById("arrow").style.display="block";
+			animate(document.getElementById("arrow"),{"opacity":1});
+		};
+		document.getElementById("wrap").onmouseout=function() {
+			// document.getElementById("arrow").style.display="";
+			animate(document.getElementById("arrow"),{"opacity":0});
+		};
+//
+		};
+</script>
+</head>
+<body>
+	<div class="wrap" id="wrap">
+		<div class="slide" id="slide">
+			<ul>
+				<li><img src="../images/lbt1.jpg"></li>
+				<li><img src="../images/lbt2.jpg"></li>
+				<li><img src="../images/lbt3.jpg"></li>
+				<li><img src="../images/lbt4.jpg"></li>
+				<li><img src="../images/lbt5.jpg"></li>
+			</ul>
+			<div class="arrow" id="arrow">
+				<div id="prev" class="arrLeft"><</div>
+				<div id="next" class="arrRight">></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

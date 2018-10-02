@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+	* {
+		margin:0;
+		padding:0;
+	}
+	ul {
+		list-style: none;
+	}
+	img {
+		vertical-align: top;
+	}
+	.box {
+		width: 590px;
+		height: 470px;
+		margin:50px auto;
+		padding: 5px;
+		background-color: yellow;
+		border: 1px solid black;
+	}
+	.inner {
+		width: 590px;
+		height: 470px;
+		position: relative;
+		/*z-index: 998;*/
+		/*opacity: 0.3;*/
+		overflow: hidden;
+	}
+	ul {
+		width: 1000%;
+		position: absolute;
+		left: 0;
+		top:0;
+	}
+	li {
+		float: left;
+	}
+	.square {
+		position:absolute;
+		right:24px;
+		bottom:15px;
+		z-index: 999;
+
+	}
+	span {
+		display: inline-block;
+		margin-right: 5px;
+		width: 20px;
+		height: 20px;
+		background-color: #fff;
+		text-align: center;
+		cursor: pointer;
+
+	}
+	.current {
+		background-color: red;
+	}
+	.focusD {
+		position: absolute;
+		width: 590px;
+		height: 470px;
+		color: #fff;
+		line-height: 80px;
+		text-align: center;
+		font-size: 30px;
+		opacity: 0.3;
+		display: none;
+		left: 0;
+		top: 0;
+	}
+	.right ,
+	.left {
+		display: block;
+		width: 50px;
+		height: 80px;
+		background-color: red;
+		background: rgba(0,0,0,0.3);
+		cursor: pointer;
+		position: absolute;
+	}
+	.right {
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.left {
+		left: 0;
+		top:50%;
+		transform: translateY(-50%);
+	}
+</style>
+<body>
+	<div class="box" id="box">
+		<div class="inner">
+			<ul>
+				<li><a href="#"><img src="images/lbt1.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt2.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt3.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt4.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt5.jpg"></a></li>
+			</ul>
+			<div class="square" id="square">
+			</div>
+			<div class="focusD" id="focusD">
+				<span class="left" id="left">&lt;</span>
+				<span class="right" id="right">&gt;</span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var inner = box.children[0];
+		var imgWidth=inner.offsetWidth;
+		var ulObj = inner.children[0];
+		var list = inner.children[0].children;
+		var square=document.getElementById("square");
+		var focusD=document.getElementById("focusD");
+		var left=document.getElementById("left");
+		var right=document.getElementById("right");
+		var index=0;
+		for (var i = 0; i < list.length; i++) {
+			spanObj=document.createElement("span");
+			square.appendChild(spanObj);
+			spanObj.innerHTML=(i+1);
+			square.children[0].className="current";
+			spanObj.setAttribute("index",i);
+			spanObj.onmouseover=function() {
+				for (var j = 0; j < square.children.length; j++) {
+				square.children[j].removeAttribute("class");
+				}
+				this.className="current";
+				index = this.getAttribute("index");
+				animate(ulObj,-index*imgWidth);
+			};
+		}
+		ulObj.appendChild(list[0].cloneNode(true));
+		var timeId=setInterval(clickHandle,1000);
+		box.onmouseover=function() {
+			focusD.style.display="block";
+			clearInterval(timeId);
+		};
+		box.onmouseout=function() {
+			focusD.style.display="";
+			timeId=setInterval(clickHandle,1000);
+		};
+		right.onclick=clickHandle;
+		function clickHandle() {
+			if (index==list.length-1) {
+				index=0;
+				ulObj.style.left=0+"px";
+			}
+				index++;
+				animate(ulObj,-index*imgWidth);
+			if (index==list.length-1) {
+				square.children[square.children.length-1].className="";
+				square.children[0].className="current1";
+				square.children[1].style.marginLeft = "5px";
+			}else {
+				for (var i = 0; i < square.children.length; i++) {
+					square.children[i].removeAttribute("class");
+				}
+				square.children[index].className="current1";
+				square.children[parseInt(index)+1].style.marginLeft = "5px";
+			}
+		};
+		left.onclick=function () {
+			if (index==0) {
+				index=5;
+				ulObj.style.left=-index*imgWidth+"px";
+			}
+			index--;
+			animate(ulObj,-index*imgWidth);
+			for (var i = 0; i < square.children.length; i++) {
+					square.children[i].removeAttribute("class");
+				}
+			square.children[index].className="current";
+		};
+		function animate (element,target) {
+			var currenta=parseInt(element.offsetLeft);
+			clearInterval(element.timeId);
+			element.timeId=setInterval(function() {
+				var current=element.offsetLeft;
+				var step=Math.abs(target-currenta)/50;
+				strp=current<target?step:-step;
+				current+=strp;
+				if (Math.abs(target-current)<Math.abs(step)) {
+				clearInterval(element.timeId);
+					element.style.left=target+"px";
+				}
+				else {
+					element.style.left=current+"px";
+				}
+			},10);
+		};
+	</script>
+</body>
+</html>

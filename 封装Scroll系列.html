@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	body {
+		height: 3000px;
+	}
+		div {
+			width: 300px;
+			height: 200px;
+			background-color: pink;
+			border: 5px solid yellow;
+			float: left;
+			overflow: auto;
+		}
+		input {
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="dv">我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我</div>
+	<input type="button" name="" id="btn" value="按钮">
+	<script type="text/javascript">
+
+//div事件
+		document.getElementById("btn").onclick=function() {
+			//console.log(document.getElementById("dv").offsetWidth);
+			console.log(document.getElementById("dv").scrollTop);
+			console.log(document.getElementById("dv").scrollHeight);
+			console.log(document.getElementById("dv").scrollWidth);
+			console.log(document.getElementById("dv").scrollLeft);
+		};
+
+
+
+
+
+//div事件
+		document.getElementById("dv").onscroll=function() {
+			console.log('haha');
+		};
+
+
+
+//window事件
+		// window.onscroll=function() {
+		// 	console.log('haha');
+		// };
+
+
+
+//测试封装
+		window.onscroll=function() {
+			console.log(getScroll().top);
+		};
+
+
+//对象封装
+		// function getScroll() {
+		// 	var obj={};
+		// 	var top=window.pageYOffset||document.documentElement.scrolltop||document.body.scrolltop||0;
+		// 	var left=window.pageXOffset||document.documentElement.scrollleft||document.body.scrollleft||0;
+		// 	obj.left=left;
+		// 	obj.top=top;
+		// 	return obj;
+		// };
+
+//一次封装
+		// function getScroll() {
+		// 	var obj={};
+		// 	obj.top=window.pageYOffset||document.documentElement.scrolltop||document.body.scrolltop||0;
+		// 	obj.left=window.pageXOffset||document.documentElement.scrollleft||document.body.scrollleft||0;
+		// 	return obj;
+		// };
+
+//二次封装
+		// function getScroll() {
+		// 	var obj={
+		// 	top:window.pageYOffset||document.documentElement.scrolltop||document.body.scrolltop||0,
+		// 	left:window.pageXOffset||document.documentElement.scrollleft||document.body.scrollleft||0
+		// 	};
+		// 	return obj;
+
+		// };
+
+
+//三次封装
+		function getScroll() {
+			return {
+			top:window.pageYOffset||document.documentElement.scrolltop||document.body.scrolltop||0,
+			left:window.pageXOffset||document.documentElement.scrollleft||document.body.scrollleft||0,
+			};
+		};
+
+
+//数组封装
+		// function getScroll() {
+		// 	var top=window.pageYOffset||document.documentElement.scrolltop||document.body.scrolltop||0;
+		// 	var left=window.pageXOffset||document.documentElement.scrollleft||document.body.scrollleft||0;
+		// 	return [left,top];
+		// };
+
+
+	</script>
+</body>
+</html>

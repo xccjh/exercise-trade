@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>Document</title>
+	<script type="text/javascript" src="解决IE8以下版本获取DOM节点的方法.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		div {
+			width: 200px;
+			height: 100px;
+			background-color: pink;
+			left: 100px;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" name="" value="显示效果" class="btn" id="btn">
+	<div class="dv" id="dv"></div>
+	<script type="text/javascript">
+//document.querySelector
+		//var dv=document.querySelector(".dv");
+		//document.querySelector(".btn").onclick=function() {
+			//console.log(getComputedStyle(document.getElementById("dv"),null).left);
+			//console.log(dv.currentStyle.left);
+		//};
+		// 
+		// 
+		// 
+		// 
+		// 
+		// 
+//document.getElementsByTagName
+		// var dv=document.getElementsByTagName("div")[0];
+		// var btn=document.getElementsByTagName("input")[0];
+		// btn.onclick=function() {
+		// 	console.log(dv.currentStyle.left);
+		// };
+		// 
+		// 
+		// 
+		// 
+		// 
+		// 
+//document.getElementById
+		// var dv = document.getElementById("dv");
+		// var btn = document.getElementById("btn");
+		// btn.onclick=function() {
+		// 	console.log(dv.currentStyle.left);
+		// };
+		// 
+		// 
+		// 
+		// 
+		// 
+		// 
+		// 
+//document.getElementsByClassName
+		//var dv=document.getElementsByClassName("dv")[0];
+		//document.getElementsByClassName("btn")[0].onclick=function() {
+			//console.log(dv.currentStyle.left);
+		//};
+		//
+		//
+		//
+		//
+		//
+		//
+//获取任意元素计算后的样式属性值
+		//window.getComputedStyle(btn,null).left;
+		//btn.current.Style.left;
+		//
+		//
+		//
+		//
+		//
+		//一次封装
+		// function getstyle(element,attr) {
+		// 	if (typeof window.getComputedStyle == "undefined") {
+		// 		return window.getComputedStyle(element,null)[attr];
+
+		// 	}else {
+		// 		return element.currentStyle[attr];
+		// 	}
+		// }
+		//
+		//
+		//
+		//
+		//二次封装
+		// function getstyle(element,attr) {
+		// 	if (window.getComputedStyle) {
+		// 		return window.getComputedStyle(element,null)[attr];
+
+		// 	}else {
+		// 		return element.currentStyle[attr];
+		// 	}
+		// }
+		//
+		//
+		//
+		//
+		//三次封装
+		// function getStyle(element,attr) {
+		// 	return window.getComputedStyle?window.getComputedStyle(element,null)[attr] : element.currentStyle[attr];
+		// }
+		// 
+		// 
+		// 
+		// 
+		// 
+		// 测试
+		function getStyle(element,attr) {
+			return window.getComputedStyle?window.getComputedStyle(element,null)[attr] : element.currentStyle[attr];
+		}
+		var dv = document.getElementById("dv");
+		var btn = document.getElementById("btn");
+		btn.onclick=function() {
+			console.log(getStyle(dv,"left"));
+		};
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		table {
+			text-align: center;
+			border-collapse: collapse;
+			border: 2px solid red;
+			width: 300px;
+			height:300px;
+		}
+		td {
+			border: 2px solid red;
+		}
+		thead td {
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<table cellspacing="0" cellpadding="0" align="center">
+		<thead>
+		<tr>
+			<td>全选 <br><input type="checkbox" name="" id="ckall"></td>
+			<td>111</td>
+			<td>222</td>
+		</tr>
+		</thead>
+		<tbody id="ck">
+		<tr>
+			<td><input type="checkbox" name=""></td>
+			<td>222</td>
+			<td>333</td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" name=""></td>
+			<td>222</td>
+			<td>333</td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" name=""></td>
+			<td>222</td>
+			<td>333</td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" name=""></td>
+			<td>222</td>
+			<td>333</td>
+		</tr>
+		</tbody>
+	</table>
+<script type="text/javascript">
+	var ckall = document.getElementById("ckall");
+	var cks = document.getElementById("ck").getElementsByTagName("input");
+	ckall.onclick=function() {
+		for (var i = 0; i < cks.length; i++) {
+			cks[i].checked=this.checked;
+		}
+	};
+	for (var i = 0; i < cks.length; i++) {
+		cks[i].onclick=function() {
+			flag=true;
+			for (var j = 0; j < cks.length; j++) {
+				if (!cks[j].checked) {
+					flag=false;
+					break;
+				}
+			}
+			ckall.checked=flag;
+		};
+	}
+</script>
+</body>
+</html>

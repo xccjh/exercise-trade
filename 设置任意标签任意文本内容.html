@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+/*		div {
+			width: 200px;
+			height: 100px;
+			background-color: pink;
+			margin-top: 40px;
+			position: absolute;
+		}*/
+			div {
+			width: 200px;
+			height: 100px;
+			/*background-color: pink;*/
+			margin-top: 40px;
+			border: 1px solid #000;
+			/*position: absolute;*/
+		}
+	</style>
+
+</head>
+<body>
+<!-- 	<input type="button" name="1.html" id="btn1" value="移动到400px">
+	<input type="button" name="" id="btn2" value="移动到800px">
+	<div id="dv"></div> -->
+	<input type="button" id="btn" value="设置值" >
+	<div id="dv"></div>
+	<script type="text/javascript">
+		// document.getElementById("btn1").onclick=function() {
+		// 	animate (document.getElementById("dv"),400);
+		// };
+		// document.getElementById("btn2").onclick=function() {
+		// 	animate (document.getElementById("dv"),800);
+		// };
+		// function animate(element,target) {
+		// 	clearInterval(element.timeId);
+		// 	element.timeId=setInterval(function() {
+		// 		current=element.offsetLeft;
+		// 		step=10;
+		// 		strp=target-current>0?step:-step;
+		// 		current+=strp;
+		// 		if (Math.abs(target-current)>Math.abs(step)) {
+		// 			element.style.left=current+"px";
+		// 		}else {
+		// 			clearInterval(element.timeId);
+		// 			element.style.left=target+"px";
+		// 		}
+		// 	},60);
+
+		// };
+		// document.getElementById("btn1").onclick=function() {
+		// 	var timeId=setInterval(function() {
+		// 		var current =document.getElementById("dv").offsetLeft;
+		// 		step=10;
+		// 		current+=step;
+		// 		if (current>400) {
+		// 			clearInterval(timeId);
+		// 		}else{
+		// 		document.getElementById("dv").style.left=current+"px";
+		// 		}
+		// 	},20);
+		// };
+		// 设置任意标签的任意文本内容
+		function setInnerText(element,text) {
+			if (typeof element.textContent == "undefined") {
+				element.innerText=text;
+			}else {
+				element.textContent=text;
+			}
+		}
+		//获取任意标签的任意文本内容
+		function getInnerText(element) {
+			if (typeof element.textContent== "undefined") {
+				return element.innerText;
+			}else {
+				return element.textContent;
+			}
+		};
+		//测试
+		document.getElementById("btn").onclick=function() {
+			setInnerText(document.getElementById("dv"),"这是一个DIV");
+			console.log(getInnerText(document.getElementById("dv")));
+		};
+		// function setInnerText(element,text) {
+		// 	if (typeof element.textContent =="undefined") {
+		// 		element.innerText=text;
+		// 	}else {
+		// 		element.textContent=text;
+		// 	}
+		// };
+		// function getInnerText(element,text) {
+		// 	if (typeof element.textContent=="undefined") {
+		// 		return element.innerText;
+		// 	}else {
+		// 		return element.textContent;
+		// 	}
+		// };
+
+	</script>
+</body>
+</html>

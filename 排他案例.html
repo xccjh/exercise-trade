@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<input type="button"  id="btn" value="1111">
+	<script type="text/javascript">
+		// var inputs=document.getElementsByTagName("input");
+		// for (var i = 0; i < inputs.length; i++) {
+		// 	inputs[i].onclick=function() {
+		// 		for (var j = 0; j < inputs.length; j++) {
+		// 			inputs[j].value="1111";
+		// 		}
+		// 		this.value="2222";
+		// 	};
+		// }
+		var inputs=document.getElementsByTagName('input');
+		for (var i = 0; i < inputs.length; i++) {
+			inputs[i].onclick=function() {
+				for (var j = 0; j < inputs.length; j++) {
+					inputs[j].value="1111";
+				}
+				this.value="2222";
+			};
+		}
+	</script>
+</body>
+</html>

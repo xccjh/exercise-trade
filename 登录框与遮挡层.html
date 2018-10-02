@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		input {
+			/*border: 0;*/
+			outline: none;
+		}
+		.dj {
+			width: 100px;
+			height: 50px;
+			margin:0 auto;
+			background-color: pink;
+			text-align: center;
+			line-height: 50px;
+			font-size: 20px;
+			cursor: pointer;
+		}
+		.login {
+			width: 400px;
+			height: 300px;
+			/*background-color: blue;*/
+			position: absolute;
+			left: 50%;
+			top: 100px;
+			transform: translateX(-50%);
+			border: 1px solid green;
+			display: none;
+			background-color: #fff;
+			box-shadow: 0px 5px 8px rgba(0,0,0,0.5)
+		}
+		.close {
+			width: 50px;
+			height: 50px;
+			background-color: red;
+			position: absolute;
+			top: -25px;
+			right: -25px;
+			font-size: 30px;
+			line-height:50px;
+			text-align: center;
+			border-radius: 50%;
+			cursor: pointer;
+			/*border: 5px solid red;*/
+		}
+		p {
+			text-align: center;
+			line-height:60px;
+			height: 60px;
+			cursor: move;
+		}
+		.login > input {
+			top: 250px;
+			left: 50%;
+			transform: translateX(-50%);
+			position: absolute;
+			width: 50px;
+			height: 30px;
+			cursor: pointer;
+		}
+		.name ,
+		.password {
+			top: 50px;
+			left: 50%;
+			transform: translateX(-50%);
+			position: absolute;
+			/*background-color: #fff;*/
+			width: 300px;
+			text-align: center;
+			line-height: 100px;
+
+		}
+		.password {
+			top: 120px;
+		}
+		.name >input,
+		.password > input {
+			display: inline-block;
+		}
+		.zz {
+			width: 2000px;
+			height: 2000px;
+			background-color: gray;
+			opacity: 0.3;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="dj" id="dj">登录</div>
+	<div class="zz" id="zz"></div>
+	<div class="login" id="login">
+		<div class="close" id="close">x</div>
+		<p>登录会员</p>
+		<div class="name">用户名： <input type="text" name="" id="name" value="请输入用户名"></div>
+		<div class="password">密　码： <input type="text" name="" id="password" value="请输入登录密码"></div>
+		<input type="button" name="" value="登录">
+	</div>
+	<script type="text/javascript">
+		document.getElementById("dj").onclick=function(e) {
+			document.getElementById("login").style.display="block";
+			document.getElementById("zz").style.display="block";
+			// e.stopPropagation();
+			// window.event.cancelBubble=true;
+//上面是阻止事件冒泡
+// 下面是阻止默认事件
+			// return false;
+			 // e.preventDefault();
+		};
+		document.getElementById("close").onclick=function() {
+			document.getElementById("login").style.display="";
+			document.getElementById("zz").style.display="";
+		};
+		// document.onclick=function() {
+		// 	document.getElementById("login").style.display="";
+		// };
+		document.getElementById("name").onfocus=function() {
+				if (this.value=="请输入用户名") {
+					this.value="";
+					this.style.color = 'black';
+				}
+		};
+		document.getElementById("name").onblur=function() {
+				if (this.value.length==0) {
+					this.value="请输入用户名";
+					this.style.color = 'gray';
+				}
+		};
+		document.getElementById("password").onfocus=function() {
+				if (this.value=="请输入登录密码") {
+					this.value="";
+					this.style.color = 'black';
+				}
+		};
+		document.getElementById("password").onblur=function() {
+				if (this.value.length==0) {
+					this.value="请输入登录密码";
+					this.style.color = 'gray';
+				}
+		};
+		document.getElementsByTagName("p")[0].onmousedown=function(e) {
+			var loginX=e.clientX-document.getElementById("login").offsetLeft;
+			var loginY=e.clientY-document.getElementById("login").offsetTop;
+			document.onmousemove=function(e) {
+				var left=e.clientX-loginX;
+				var top=e.clientY-loginY;
+				document.getElementById("login").style.left=left+"px";
+				document.getElementById("login").style.top=top+"px";
+			};
+		};
+		document.onmouseup=function() {
+			document.onmousemove=null;
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+/*初始化部分*/
+	body {
+		background-color: #f0f3ef;
+	}
+	.w {
+		width: 1190px;
+		margin: 0 auto;
+	}
+	a {
+		text-decoration: none;
+		color: #999;
+	}
+	a:hover {
+		color: #e33333;
+	}
+	@font-face {
+	  font-family: 'icomoon';
+	  src:  url('../fonts/icomoon.eot?vo7cjz');
+	  src:  url('../fonts/icomoon.eot?vo7cjz#iefix') format('embedded-opentype'),
+	    url('../fonts/icomoon.ttf?vo7cjz') format('truetype'),
+	    url('../fonts/icomoon.woff?vo7cjz') format('woff'),
+	    url('../fonts/icomoon.svg?vo7cjz#icomoon') format('svg');
+	  font-weight: normal;
+	  font-style: normal;
+	}
+	.f10 {
+		color: #f10215!important;
+	}
+	.clearfixed:before,
+	.clearfixed:after {
+		display: table;
+		content:"";
+		clear: both;
+	}
+	.clearfixed {
+		zoom:1;
+	}
+	.fl {
+		float: left;
+	}
+	.fr {
+		float: right;
+	}
+	ul,h1,h2,h3,h4,h5,h6,input,button,p,li,i,span,dl,dt,dd {
+		margin:0;
+		padding: 0;
+	}
+	input,button {
+		outline: none;
+		border:0;
+	}
+	ul {
+		list-style: none;
+	}
+	img {
+		vertical-align: top;
+	}N
+/*头部分*/
+	header {
+		height: 70px;
+		background-color: #e83632;
+	}
+/*快速导航栏部分*/
+	.shortcut {
+		height: 30px;
+		line-height: 30px;
+		background-color: #e3e4e5;
+		border-bottom: 1px solid #ddd;
+		font-size: 12px;
+	}
+	.city {
+		margin-left: 210px;
+	}
+	.shortcut li {
+		float: left;
+	}
+	.shortcut li:last-of-child {
+		margin: 0 -3px 0 6px;
+	}
+	.shortcut i {
+		font-family: "icomoon";
+		 font-style: normal;
+	}
+	.space {
+		width: 1px;
+		height: 10px;
+		background-color: #ccc;
+		margin:10px 12px;
+	}
+	.mobile {
+		position: relative;
+	}
+	.mobile img:first-child {
+		position: absolute;
+		top:24px;
+		right: -12px;
+		border:1px solid #cfcfcf;
+		padding: 4px;
+	}
+	.mobile img:last-child {
+		position: absolute;
+		top:24px;
+		right: -12px;
+		border:1px solid #cfcfcf;
+		padding: 4px;
+	}
+/*中间logo部分*/
+	.middle {
+		height: 150px;
+		position: relative;
+	}
+	/*logo部分*/
+	.logo a {
+		background-image: url(../images/logo.png);
+		display: block;
+		width: 190px;
+		height: 170px;
+		position: absolute;
+		top: -30px;
+		left: 0;
+		box-shadow: 0 -10px 10px rgba(0,0,0,.3)
+	}
+	/*search部分*/
+	.search {
+		width: 550px;
+		height: 36px;
+		background-color: pink;
+		position: absolute;
+		left: 320px;
+		top: 25px;
+	}
+	.search input {
+		width: 488px;
+		height: 34px;
+		background-color: #fff;
+		border:1px solid #f10215;
+		float: left;
+		font-size: 14px;
+		padding-left: 10px;
+		color: #999;
+	}
+	.search button {
+		width: 50px;
+		height: 36px;
+		background-color: #f10215;
+		float: left;
+		cursor: pointer;
+	}
+	.search button i {
+		font-family: "icomoon";
+		color: #fff;
+		font-style: normal;
+	}
+	.search a {
+		display: block;
+		height: 18px;
+		width: 20px;
+		position: absolute;
+		top: 6px;
+		right: 64px;
+	}
+	.search a i {
+		font-family: "icomoon";
+		font-style: normal;
+		font-size: 20px;
+	}
+	/*shopCar部分*/
+	.shopCar {
+		width: 188px;
+		height: 34px;
+		line-height: 34px;
+		background-color: #fff;
+		border: 1px solid #e3e4e5;
+		position: absolute;
+		top:25px;
+		right: 102px;
+		text-align: center;
+		font-size: 12px;
+	}
+	.shopCar i {
+		font-family: "icomoon";
+		font-style: normal;
+		margin-right: 5px;
+		font-size: 16px;
+		color: #f10215;
+	}
+	.shopCar span {
+		width: 14px;
+		height: 15px;
+		line-height: 15px;
+		border-radius: 50%;
+		position: absolute;
+		top:3px;
+		right: 36px;
+		background-color: #f10215;
+		color: #fff;
+		font-size: 14px;
+	}
+	/*.keywords部分*/
+	.keywords {
+		position: absolute;
+		left: 320px;
+		top: 68px;
+	}
+	.keywords a {
+		font-size: 12px;
+		color: #aea4bb;
+		margin-right: 2px;
+	}
+	.keywords a:first-child {
+		margin-right: 16px;
+	}
+	/*navitems部分*/
+	.navitems {
+		width: 800px;
+		height: 56px;
+		line-height: 56px;
+		position: absolute;
+		left:202px;
+		bottom: 0px;
+	}
+	.navitems li {
+		font-size: 14px;
+		margin-left: 30px;
+		font-weight: bold;
+		float: left;
+	}
+	.navitems a {
+		color: #333;
+	}
+	.navitems a:hover {
+		color: #f10215;
+	}
+	.navitems .space {
+		margin:24px -27px 10px 15px;
+	}
+	/*super部分*/
+	.super {
+		width: 190px;
+		height: 40px;
+		position: absolute;
+		bottom: 10px;
+		right: 0;
+	}
+/*尾部分*/
+	footer {
+		height: 566px;
+	}
+	/*服务部分*/
+	.service {
+		padding: 30px 0;
+		border-bottom:1px solid #dedede;
+	}
+	.service li {
+		height: 46px;
+		line-height: 46px;
+		width: 297px;
+		float: left;
+		position: relative;
+	}
+	.service li p {
+		font-size: 20px;
+		font-weight: bold;
+		margin-left: 82px;
+	}
+	.service li h5{
+		background: url(../images/sprite.footer.png) 0 -193px no-repeat;
+		position: absolute;
+		top:0;
+		left:38px;
+		width: 38px;
+		height: 43px;
+		line-height: 43px;
+	}
+	.service li:nth-child(2) h5 {
+		background:  url(../images/sprite.footer.png) -41px -193px no-repeat;
+	}
+	.service li:nth-child(3) h5 {
+		background:  url(../images/sprite.footer.png) -82px -193px no-repeat;
+	}
+	.service li:nth-child(4) h5 {
+		background:  url(../images/sprite.footer.png) -123px -193px no-repeat;
+	}
+	/*help部分*/
+		/*左边部分*/
+		.help {
+			height: 200px;
+			border-bottom: 1px solid #e1e1e1;
+			padding-top: 25px;
+		}
+		.help dt {
+			height: 30px;
+			font-size: 14px;
+		}
+		.help dd {
+			height: 22px;
+			font-size: 12px;
+		}
+		.help dd a {
+			color: #666;
+		}
+		.help dd a:hover {
+			color: #f10215;
+		}
+		.help dl {
+			width: 198px;
+			float: left;
+		}
+		/*右边coverage部分*/
+		.coverage {
+			width: 200px;
+			height: 150px;
+			background: url(../images/sprite.footer.png) -7px 0 no-repeat;
+			color: #666;
+		}
+		.coverage h5 {
+			font-size: 14px;
+			text-align: center;
+			height: 37px;
+		}
+		.coverage p {
+			font-size: 12px;
+			line-height: 19px;
+			width: 180px;
+		}
+		.coverage a {
+			display: inline-block;
+			text-align: right;
+			width: 180px;
+			height: 19px;
+			line-height: 19px;
+			font-size: 12px;
+		}
+		.coverage a i {
+			font-family: "icomoon";
+			font-style: normal;
+			font-size: 19px;
+			float: right;
+			margin-left: -8px;
+		}
+	/*版权部分*/
+		/*jh部分*/
+		.copyright {
+			padding-top: 16px;
+			text-align: center;
+		}
+		.copyright p {
+			font-size: 12px;
+			line-height: 24px;
+			color: #999;
+		}
+		.copyright>p {
+			font-size: 12px;
+			color: #666;
+			padding-bottom: 20px;
+		}
+		.copyright .jh a {
+			color: #666;
+		}
+		.copyright .jh a:hover {
+			color: #f10215;
+		}
+		.copyright span {
+			font-size: 12px;
+			color: #d2ccd2;
+			margin: 0 6px;
+		}
+		/*信息部分*/
+		.ifo .tb{
+			margin-left: 25px;
+			position: relative;
+		}
+		.ifo i:first-child {
+			width: 14px;
+			height: 14px;
+			display: inline-block;
+			background: url(../images/sprite.footer.png) -108px -154px no-repeat;
+			position: absolute;
+			left: -27px;
+			top:1px;
+		}
+		.ifo .tb:nth-of-type(2) i {
+			background: url(../images/sprite.footer.png) -129px -154px no-repeat;
+		}
+		.ifo .tb :nth-of-type(3) i {
+			background: url(../images/sprite.footer.png) -149px -154px no-repeat;
+		}
+		.ifo .tb:nth-of-type(4) i {
+			background: url(../images/sprite.footer.png) -168px -154px no-repeat;
+		}
+		/*友情链接部分*/
+		.yq {
+			height: 70px;
+			padding-top: 38px;
+			/*background-color: #fff;*/
+		
+		}
+		.yq a {
+			/*background-color: #bfa;*/
+			margin:0 3px;
+			display: inline-block;
+			width: 102px;
+			height: 30px;
+			text-align: center;
+		}
+		.yq div {
+			margin:0 auto;
+		}
+		.yq a:first-child {
+			background: url(../images/sprite.footer.png) -206px 0px no-repeat;
+		}
+		.yq a:nth-child(2) {
+			background: url(../images/sprite.footer.png) -206px -38px no-repeat;
+		}
+		.yq a:nth-child(3) {
+			background: url(../images/sprite.footer.png) -206px -76px no-repeat;
+		}
+		.yq a:nth-child(4) {
+			background: url(../images/sprite.footer.png) -206px -110px no-repeat;
+		}
+		.yq a:nth-child(5) {
+			background: url(../images/sprite.footer.png) -206px -148px no-repeat;
+		}
+/*滚动搜索框部分*/
+	.gdfix {
+		position: fixed;
+		width: 1343px;
+		height: 49px;
+		/*background-image: url(../images/fix.png);*/
+		background-color: #fff;
+		left: 0;
+		top: -49px;
+		z-index: 2000;
+		box-sizing: border-box;
+		/*line-height: 49px;*/
+		/*opacity: 0;*/
+		border-bottom: 2px solid #f10215;
+	}
+	.gdfix .logo a {
+		background: url(../images/slogo.png) no-repeat;
+		margin-left: 90px;
+		display: block;
+		width: 125px;
+		height: 40px;
+		position: absolute;
+		margin-top: 3px;
+		top: 0px;
+		left: 0;
+		box-shadow: 0 0px 0px rgba(0,0,0,.3);
+	}
+	.search {
+		width: 550px;
+		height: 36px;
+		background-color: pink;
+		position: absolute;
+		left: 320px;
+		top: 7px;
+	}

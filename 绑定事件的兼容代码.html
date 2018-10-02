@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="button" name="" id="btn1" value="此按钮有两个事件">
+	<input type="button" name="" id="btn2" value="去除按钮一个事件">
+	<script type="text/javascript">
+//绑定事件的浏览器兼容代码
+		function addEventListener(element,type,fn) {
+			if(element.addEventListener) {
+				element.addEventListener(type, fn, false);
+			}else if (element.attachEvent) {
+				element.attachEvent("on"+type,fn);
+			}else {
+				element["on"+type]=fn;
+			}
+		}
+//解绑事件的浏览器兼容代码
+		function removeEventListener(element,type,fn) {
+			if(element.removeEventListener) {
+				element.removeEventListener(type, fn, false)
+			}else if (element.detachEvent) {
+				element.detachEvent("on"+type,fn);
+			}else {
+				element["on"+type]=null;
+			}
+		}
+
+//测试
+		function f1() {
+			console.log('第一');
+		};
+		function f2() {
+			console.log('第二');
+		};
+		addEventListener(document.getElementById("btn1"),"click",f1);
+		addEventListener(document.getElementById("btn1"),"click",f2);
+		document.getElementById("btn2").onclick=function() {
+			removeEventListener(document.getElementById("btn1"),"click",f1);
+		};
+	</script>
+</body>
+</html>

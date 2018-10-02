@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {
+		margin:0;
+		padding:0;
+	}
+	ul {
+		list-style: none;
+	}
+	img {
+		vertical-align: top;
+	}
+	.box {
+		width: 590px;
+		height: 470px;
+		margin:50px auto;
+		border: 1px solid black;
+		position: relative;
+		overflow: hidden;
+	}
+	ul {
+		width: 1000%;
+		position: absolute;
+		left: 0;
+		top:0;
+	}
+	li {
+		float: left;
+	}
+	</style>
+
+</head>
+<body>
+	<div class="box" id="box">
+			<ul id="ul1">
+				<li><a href="#"><img src="images/lbt1.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt2.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt3.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt4.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt5.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt5.jpg"></a></li>
+			</ul>
+	</div>
+	<script type="text/javascript">
+		var current=0;
+		var ulObj=document.getElementById("box").children[0];
+		function f1() {
+			current-=50;
+			if (current<-2950) {
+			current=0;
+			ulObj.style.left = 0+"px";
+
+		}else {
+			ulObj.style.left = current+"px";
+		}
+		};
+		var timeId=setInterval(f1,50);
+		box.onmouseover=function() {
+			clearInterval(timeId);
+		};
+		box.onmouseout=function() {
+		timeId=setInterval(f1,50);
+		};
+	</script>
+</body>
+</html>

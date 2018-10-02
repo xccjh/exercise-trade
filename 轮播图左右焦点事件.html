@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+	* {
+		margin:0;
+		padding:0;
+	}
+	ul {
+		list-style: none;
+	}
+	img {
+		vertical-align: top;
+	}
+	.box {
+		width: 590px;
+		height: 470px;
+		margin:50px auto;
+		padding: 5px;
+		background-color: yellow;
+		border: 1px solid black;
+	}
+	.inner {
+		width: 590px;
+		height: 470px;
+		position: relative;
+		overflow: hidden;
+	}
+	ul {
+		width: 1000%;
+		position: absolute;
+		left: 0;
+		top:0;
+	}
+	li {
+		float: left;
+	}
+	.square {
+		position:absolute;
+		right:24px;
+		bottom:15px;
+
+	}
+	span {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		background-color: #fff;
+		text-align: center;
+		cursor: pointer;
+
+	}
+	.current {
+		background-color: red;
+	}
+	.focusD {
+		position: relative;
+		width: 590px;
+		height: 470px;
+		color: #fff;
+		line-height: 80px;
+		text-align: center;
+		font-size: 30px;
+		opacity: 0.3;
+		display: none;
+	}
+	.right ,
+	.left {
+		display: block;
+		width: 50px;
+		height: 80px;
+		/*background-color: red;*/
+		background: rgba(0,0,0,0.3);
+		cursor: pointer;
+	}
+	.right {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.left {
+		position: absolute;
+		left: 0;
+		top:50%;
+		transform: translateY(-50%);
+	}
+
+</style>
+<body>
+	<div class="box" id="box">
+		<div class="inner">
+			<ul>
+				<li><a href="#"><img src="images/lbt1.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt2.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt3.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt4.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt5.jpg"></a></li>
+			</ul>
+			<div class="square">
+				<span>1</span>
+				<span>2</span>
+				<span>3</span>
+				<span>4</span>
+				<span>5</span>
+			</div>
+			<div class="focusD" id="focusD">
+				<span class="left" id="left">&lt;</span>
+				<span class="right" id="right">&gt;</span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var inner = box.children[0];
+		var imgWidth=inner.offsetWidth;
+		var ulObj = inner.children[0];
+		var focusD=document.getElementById("focusD");
+		var left=document.getElementById("left");
+		var right=document.getElementById("right");
+		box.onmouseover=function() {
+			focusD.style.display="block";
+		};
+		box.onmouseout=function() {
+			focusD.style.display="";
+		};
+		var index=0;
+		right.onclick=function() {
+			if (index<ulObj.children.length-1) {
+			index++;
+			animate(ulObj,-index*imgWidth);
+			}
+		};
+		left.onclick=function() {
+			if (index>0) {
+			index--;
+			animate(ulObj,-index*imgWidth);
+			}
+		};
+
+
+
+
+		function animate (element,target) {
+			clearInterval(element.timeId);
+			element.timeId=setInterval(function() {
+				var current=element.offsetLeft;
+				var step=10;
+				strp=current<target?step:-step;
+				current+=strp;
+				if (Math.abs(target-current)<Math.abs(step)) {
+				clearInterval(element.timeId);
+				element.style.left=target+"px";
+				}
+				else {
+				element.style.left=current+"px";
+				}
+			},20);
+		};
+	</script>
+	</body>
+</html>

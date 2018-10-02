@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>背景色渐变效果</title>
+  <script language="javascript" type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery.color.js"></script>
+  <style type="text/css">
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <input type="button" name="" value="变色" id="btn">
+  <div id='cdiv'></div>
+<script>
+  $(function(){
+     $("#btn").click(function() {
+      console.log('呵呵');
+    $("#cdiv").animate({width:600,backgroundColor:"yellow"},1000);
+    })
+  });
+</script>
+</body>
+</html>

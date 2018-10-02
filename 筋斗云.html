@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+	}
+		div {
+			width: 800px;
+			height: 50px;
+			background-color: pink;
+			margin: 50px auto;
+			position: relative;
+		}
+		ul {
+			width: 800px;
+			height: 50px;
+			background-color: yellow;
+		}
+		li{
+			width: 12.5%;
+			height: 100%;
+			list-style: none;
+			float: left;
+			/*background-color: yellow;*/
+			text-align: center;
+			line-height: 50px;
+			box-sizing: border-box;
+			border-right: 1px solid blue;
+			opacity: 0.8;
+		}
+		li:last-child {
+			border: none;
+		}
+		.dv {
+			width: 80px;
+			height: 30px;
+			background-color: green;
+			position: absolute;
+			left: 10px;
+			top: -40px;
+		}
+	</style>
+</head>
+<style type="text/css"></style>
+<body>
+	<div id="ulObj">
+		<div class="dv" id="dv"></div>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+		</ul>
+		
+	</div>
+	<script type="text/javascript">
+//变速动画多个属性动画
+	function animate(element,json) {
+		clearInterval(element.timeId);
+		element.timeId=setInterval(function() {
+			var flag=true;
+			for (attr in json) {
+				var current=parseInt(getStyle(element,attr));
+				var target=json[attr];
+				step=(target-current)/10;
+				step=step>0?Math.ceil(step):Math.floor(step);
+				current+=step;
+				element.style[attr]=current+"px";
+				if (target!=current) {
+					flag=false;
+				}
+			}
+			if (flag) {
+				clearInterval(element.timeId);
+			}
+			//console.log("目标："+target+",当前："+current+",每次移动部数："+step);
+
+		},10);
+	};
+//获取任意元素计算后的样式属性值
+	function getStyle(element,attr) {
+		return window.getComputedStyle?window.getComputedStyle(element,null)[attr] : elementcurrentStyle[attr];
+	}
+//
+		cloud=document.getElementById("dv");
+		list=document.getElementById("ulObj").children[1].children;
+		for (var i = 0; i < list.length; i++) {
+			list[i].onmouseover=mouseoverHandle;
+			list[i].onclick=clickHandle;
+			list[i].onmouseout=mouseoutHandle;
+		}
+		function mouseoverHandle() {
+			animate(cloud, {"left":parseInt(this.offsetLeft)+10});
+			console.log('haha');
+		};
+
+		var lastPosition=10;
+		function clickHandle() {
+		lastPosition=parseInt(this.offsetLeft)+10;
+		animate(cloud, {"left":lastPosition});
+		};
+		function mouseoutHandle() {
+		animate(cloud, {"left":lastPosition});
+		};
+</script>
+</body>
+</html>

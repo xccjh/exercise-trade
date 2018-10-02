@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+	* {
+		margin:0;
+		padding:0;
+	}
+	ul {
+		list-style: none;
+	}
+	img {
+		vertical-align: top;
+	}
+	.box {
+		width: 590px;
+		height: 470px;
+		margin:50px auto;
+		padding: 5px;
+		background-color: yellow;
+		border: 1px solid black;
+	}
+	.inner {
+		width: 590px;
+		height: 470px;
+		position: relative;
+		/*overflow: hidden;*/
+	}
+	ul {
+		width: 1000%;
+		position: absolute;
+		left: 0;
+		top:0;
+	}
+	li {
+		float: left;
+	}
+	.square {
+		position:absolute;
+		right:24px;
+		bottom:15px;
+
+	}
+	span {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		background-color: #fff;
+		text-align: center;
+		cursor: pointer;
+
+	}
+	.current {
+		background-color: red;
+	}
+</style>
+<body>
+	<div class="box" id="box">
+		<div class="inner">
+			<ul>
+				<li><a href="#"><img src="images/lbt1.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt2.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt3.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt4.jpg"></a></li>
+				<li><a href="#"><img src="images/lbt5.jpg"></a></li>
+			</ul>
+			<div class="square">
+				<span>1</span>
+				<span>2</span>
+				<span>3</span>
+				<span>4</span>
+				<span>5</span>
+				</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var inner = box.children[0];
+		var imgWidth=inner.offsetWidth;
+		var ulObj = inner.children[0];
+		var spanObjs = inner.children[1].children;
+		for (var i = 0; i < spanObjs.length; i++) {
+			spanObjs[i].setAttribute("index", i);
+			spanObjs[i].onmouseover=function() {
+				for (var j = 0; j < spanObjs.length; j++) {
+					spanObjs[j].removeAttribute("class");
+				}
+				this.className="current";
+				// alert(this.getAttribute("index"));
+				var index=parseInt(this.getAttribute("index"));
+				// current1=ulObj.offsetLeft;
+				// console.log(current1);
+				// current1=parseInt(window.getComputedStyle(ulObj,  null).left);
+				// if (Math.abs(index*imgWidth-Math.abs(current1))>imgWidth) {
+				// 	if (index*imgWidth-Math.abs(current1)>0) {
+				// 		ulObj.style.left =-1*(index-1)*imgWidth+"px";
+				// 	}else {
+				// 		ulObj.style.left =-1*(index+1)*imgWidth+"px";
+				// 	}
+				// 	//ulObj.style.left =index*imgWidth-Math.abs(current1)>0 ?-(index-1)*imgWidth+"px":-(index+1)*imgWidth+"px";
+				// 	 animate(ulObj,-index*imgWidth);
+				// }else {
+				animate(ulObj,-index*imgWidth);
+				// }
+				// console.log(current1);
+			};
+		}
+
+
+		function animate (element,target) {
+			var currenta=parseInt(element.offsetLeft);
+			clearInterval(element.timeId);
+			element.timeId=setInterval(function() {
+				var current=element.offsetLeft;
+				var step=Math.abs(target-currenta)/10;
+				strp=current<target?step:-step;
+				current+=strp;
+				if (Math.abs(target-current)<Math.abs(step)) {
+				clearInterval(element.timeId);
+					element.style.left=target+"px";
+				}
+				else {
+					element.style.left=current+"px";
+				}
+			},20);
+		};
+
+	</script>
+</body>
+</html>

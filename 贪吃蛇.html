@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.map {
+			width: 800px;
+			height: 500px;
+			background-color: #ccc;
+			position: absolute;
+			left:50%;
+			top: 50px;
+			transform: translateX(-50%);
+		}
+		.start ,
+		.pause ,
+		.restart ,
+		.continue ,
+		.csh {
+			position: absolute;
+			left:35%;
+			top: 10px;
+			transform: translateX(-50%);
+		}
+		.pause {
+			left:45%;
+		}
+		.continue {
+			left:55%;
+		}
+		.restart {
+			left:65%;
+		}
+		.csh {
+			left:10%;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" class="start" value="开始游戏">
+	<input type="button" class="pause" value="暂停游戏">
+	<input type="button" class="continue" value="继续游戏">
+	<input type="button" class="restart" value="再来一次">
+	<input type="button" class="csh" value="初始化">
+	<div class="map"></div>
+	<script type="text/javascript">
+//自调用函数创建食物
+		(function() {
+			var elements=[];
+			function Food(x,y,width,height,color) {
+				this.x=x||0;
+				this.y=y||0;
+				this.width=width||20;
+				this.height=height||20;
+				this.color = color||"green";
+			}
+			Food.prototype.init=function(map) {
+				remove();
+				var div=document.createElement("div");
+				map.appendChild(div);
+				div.style.width=this.width+"px";
+				div.style.height=this.height+"px";
+				div.style.backgroundColor=this.color;
+				//设置横纵坐标调用数学函数随机产生
+				div.style.position="absolute";
+				this.x=parseInt(Math.random()*(map.offsetWidth/this.width))*this.width;//块数*宽度
+				this.y=parseInt(Math.random()*(map.offsetHeight/this.height))*this.height;//块数*高度
+				div.style.left=this.x+"px";
+				div.style.top=this.y+"px";
+				elements.push(div);
+			};
+			function remove() {
+				for (var i = 0; i < elements.length; i++) {
+					var ele=elements[i];
+					ele.parentNode.removeChild(ele);
+					elements.splice(i,1);
+				}
+			};
+			//对外暴露移除食物闭包内私有函数方法，非原型，通过直接暴露出
+			window.Food=Food;
+			window.removefood=remove;
+		}());
+//自调用函数创建小蛇
+	(function() {
+	//定义闭包内全局数组，临时存放小蛇所有方块，以在移动小蛇更新数据时擦除原来的身体
+			var elements=[];
+	//小蛇构造函数
+			function Snake(width,height,direction) {
+				this.width=width||20;
+				this.height=height||20;
+				//一开始小蛇总共三个方块，当实例化对象时，不传入参数，全部参数也已经具备
+				this.body=[
+					{x:3,y:2,color : "red"},
+					{x:2,y:2,color : "orange"},
+					{x:1,y:2,color : "orange"}
+				];
+				this.direction = direction||"right";
+			}
+			// var obj=null;
+	//原型方法小蛇初始化，从构造函数创建实例对象中传入参数去初始化小蛇每个身体的方块样式大小，绘制小蛇
+		//当创建游戏实例对象时，也会同时，相应创建好了小蛇和食物实例对象，再调用此方法会把小蛇直接画出来
+			Snake.prototype.init=function(map) {
+				// 画蛇前先把之前的蛇擦掉,同时方便在点击游戏初始化按钮时调用，以清除原留小蛇
+				remove();
+				for (var i = 0; i < this.body.length; i++) {
+					obj=this.body[i];
+					var div=document.createElement("div");
+					map.appendChild(div);
+					div.style.position="absolute";
+					div.style.left=obj.x*this.width+"px";
+					div.style.top=obj.y*this.height+"px";
+					div.style.backgroundColor=obj.color;
+					div.style.width=this.width+"px";
+					div.style.height=this.height+"px";
+					// 画蛇过程中把每个方块放入数组以便后续移除
+					elements.push(div);
+				}
+			};
+	//原型方法小蛇移动计算，
+			Snake.prototype.move=function(food,map) {
+			//身体计算
+				var i=this.body.length-1;
+				for (; i>0; i--) {
+						this.body[i].x=this.body[i-1].x;
+						this.body[i].y=this.body[i-1].y;
+				}
+			//头部方向判断和计算
+				switch(this.direction){
+					case "right":this.body[0].x+=1;break;
+					case "left":this.body[0].x-=1;break;
+					case "top":this.body[0].y-=1;break;
+					case "bottom":this.body[0].y+=1;break;
+				}
+			//吃食物判断和计算
+				//蛇头的位置
+				var headX=this.body[0].x*this.width;
+				var headY=this.body[0].y*this.height;
+				//食物的位置
+				var foodX=food.x;//块数*宽度的food.x传值
+				var foodY=food.y;//块数*高度的food.y传值
+					//判断碰到食物
+				if (headX==foodX&&headY==foodY) {
+					// alert("吃了");
+					//身体通过最后一个方块变长
+					var last=this.body[this.body.length-1];
+					this.body.push({
+						x:last.x,
+						y:last.y,
+						color:last.color
+					});
+					//吃掉食物后重新绘制食物
+					food.init(map);
+					}
+			//吃到自己判断
+					for (var i = 1; i <= this.body.length-1; i++) {
+						// console.log(this.body[i]);//小蛇有几个方块输出即可对象
+						//假设3个方块的小蛇查看吃到自己时的坐标规律，控制台看
+						//console.log(this.body[this.body.length-1].x+"===="+this.body[this.body.length-2].x+"===="+"===="+this.body[this.body.length-3].x+"===="+this.body[this.body.length-1].y+"===="+this.body[this.body.length-2].y+"===="+this.body[this.body.length-3].y+"===="+"===="+this.body[i].x+"===="+this.body[i].y);
+						//如果头方块坐标与身体任何一个方块坐标相同，即吃到自己
+						if ((this.body[i].x==this.body[0].x&&this.body[i].y==this.body[0].y)) {
+						//清理定时器结束游戏
+						clearInterval(time.timeId);
+						//延时弹框提示
+						var man=2;
+						time.timeId=setInterval(function() {
+							 man--;
+							if (man=1) {
+									clearInterval(time.timeId);
+									alert("吃到自己了");
+								}
+						},150);
+					}
+					}
+			//撞墙判断（不用乘以宽度，判断块数即可）
+					//地图最大块数
+					var maxX=map.offsetWidth/this.width;
+					var maxY=map.offsetHeight/this.height;
+					//蛇头位置块数
+					var headXk=this.body[0].x;
+					var headYk=this.body[0].y;
+					if (headXk<0||headXk>=maxX||headYk<0||headYk>=maxY) {
+						clearInterval(time.timeId);
+					//方法一：可以利用setInterval延时
+					// 	var man=2;
+					// 	time.timeId=setInterval(function() {
+					// 		 man--;
+					// 		if (man=1) {
+					// 				clearInterval(time.timeId);
+					// 				alert("游戏结束");
+					// 			}
+					// 	},150);
+					//方法二：可以利用setTimeout延时,最好接受一下定时器返回值
+					    // time.timeId=setTimeout(function() {
+							// alert('游戏结束');
+						// }, 0);
+					//方法三：//截断绘画过程，同样实现弹框后不绘画计算后的小蛇
+						alert('游戏结束');
+							return;//或者return false;
+					}
+					//要想实现截断必须放在一个函数体内，且绘画进程在return后，注意函数异步队列延迟才导致定时器清理后小蛇还在动，
+					//因为弹框后才渲染出小蛇，弹框前只是算好小蛇移动的坐标
+					this.init(map);
+				};
+	//利用全局数组移除小蛇的闭包内部私有函数，非构造器原型方法以防外部随意调用
+			function remove() {
+				var i=elements.length-1;
+				for(; i>=0 ;i--){
+					var ele=elements[i];
+					ele.parentNode.removeChild(ele);
+					elements.splice(i,1);
+				}
+			};
+	//对闭包外暴露小蛇构造器
+			window.Snake=Snake;
+			// 对外暴露小蛇身体方块数组，前提是调用了创建小蛇的函数，否则为空
+			// window.elements=elements;
+		}());
+		// console.log(elements);
+//自调用函数创建游戏
+	(function() {
+			//暴露出来的数组可以在另一个内部函数中取值使用
+			// console.log(elements[0]);
+			// 定义闭包内全局变量使游戏实例对象可以在闭包内共享
+			var that=null;
+			//定时器的返回值放在一个对象的属性中，防止多次开启定时器造成不断开辟引用空间，节省内存空间
+			var time={};//把定时器返回值放在一个对象的属性中
+	//游戏对象的构造函数
+			function Game(map) {
+				this.food=new Food();
+				this.snake=new Snake();
+				this.map=map;
+				that=this;
+			}
+	//原型方法游戏初始化,调用食物和小蛇实例对象原型方法绘制食物和小蛇,引用游戏对象原型方法,移动小蛇,绑定按键，调用即游戏开始
+			Game.prototype.init=function() {//这里有食物初始化，用于再来一次游戏按钮
+				this.food.init(this.map);
+				this.snake.init(this.map);
+				// var that=this;//把that放在函数里面不方便闭包内全局引用，改为隐式全局变量
+				// setInterval(function() {//this为window
+				// 	that.snake.move(that.food,that.map);
+				// 	that.snake.init(that.map);
+		 	// 	},150);
+				this.runShake(this.food,this.map,this.snake);
+				// 按键监听bindkey包含在runshake里面
+				// this.bindKey();
+			};
+	//原型方法游戏可以开始玩========小蛇和食物动起来的真正方法，其他都为引用此方法=======原因：定时器
+			// 原型方法游戏传入参数与否（创建该方法时）
+				//传入snake,闭包内直接使用snake，闭包外使用游戏实例对象.snake，或者new Snake()后传入小蛇实例对象
+				//不传snake，闭包内使用this.snake，闭包外使用游戏实例对象.snake
+			//当实现再玩一次操作重新传入新蛇（使用该方法时）
+				//传入snake，通过new Snake()后，传入小蛇实例对象，使用该方法
+				//不传snake，通过new Game()后，直接，使用该方法
+			Game.prototype.runShake=function(food,map,snake) {//这里没有食物初始化，用于暂停后继续按钮，注意加入按键监听
+				// 防止多次开启定时器导致加速渲染
+				clearInterval(time.timeId);
+				// 小蛇移动过程监听键盘
+				//　为了外部单独直接使用而没有过触发监听键盘函数，即没有调用Game.init方法,比如开始游戏
+				//即为了直接点击继续游戏，调用此方法，去按键监听，加入按键绑定
+         		this.bindKey(snake);
+				time.timeId=setInterval(function() {
+					// snake.init(map);
+					snake.move(food,map);
+				},150);
+			};
+	//绑定事件的浏览器兼容代码
+		function addEventListener(element,type,fn) {
+			if(element.addEventListener) {
+				element.addEventListener(type, fn, false);
+			}else if (element.attachEvent) {
+				element.attachEvent("on"+type,fn);
+			}else {
+				element["on"+type]=fn;
+			}
+		}
+	//原型方法监听按键=====由于addEventListener，一直监听键盘，只要调用一次即可，无需放在定时器内
+			Game.prototype.bindKey=function(snake) {
+				addEventListener(document,"keydown", function(e) {
+					switch (e.keyCode||window.event.keyCode) {
+						case 37:
+							snake.direction="left";
+							break;
+						case 38:
+							snake.direction="top";
+							break;
+						case 39:
+							snake.direction="right";
+							break;
+						case 40:
+							snake.direction="bottom";
+							break;
+					}
+				});
+			};
+			//不传入snake的情况
+			// Game.prototype.bindKey=function() {
+			// 	document.addEventListener("keydown", function(e) {
+			// 		switch (e.keyCode) {
+			// 			case 37:
+			// 				this.snake.direction="left";
+			// 				break;
+			// 			case 38:
+			// 				this.snake.direction="top";
+			// 				break;
+			// 			case 39:
+			// 				this.snake.direction="right";
+			// 				break;
+			// 			case 40:
+			// 				this.snake.direction="bottom";
+			// 				break;
+			// 		}
+			// 	}, false)
+			// };
+			//闭包内部测试代码
+			// var gm=new Game(document.querySelector(".map"));
+			// gm.init();
+	//对外暴露游戏对象，定时器对象以便外部控制清理定时器实现运动控制
+			window.Game=Game;
+			window.time=time;
+	}());
+//过程测试
+		// fd=new Food();
+		// // console.log(fd);
+		// fd.init(document.querySelector(".map"));
+		// // fd.init(document.querySelector(".map"));
+		// var snake=new Snake();
+		// snake.init(document.querySelector(".map"));
+		// // snake.move(fd,document.querySelector(".map"));
+		// // snake.init(document.querySelector(".map"));
+		// setInterval(function() {
+		// snake.move(fd,document.querySelector(".map"));
+		// snake.init(document.querySelector(".map"));
+		// },150);
+		// // console.log(fd.width);
+//整个游戏测试
+	//传入地图，小蛇和食物采用默认宽高和颜色（没传)，如果要改，通过各自构造函数闯入参数创建，通过游戏对象传参原型方法
+	//如要实现游戏实例对象传参控制小蛇和食物，在游戏构造函数传入控制参数，构造函数内部以各自new实例对象方法时赋值传递
+	//利用对象的属性存放游戏对象指向同一个引用地址，大量重复开始游戏时，节省内存空间
+		var game={};
+		game.game=new Game(document.querySelector(".map"));
+		//可以这样调用一次即可，无需放在定时器内，为了点击开始游戏后触发，放在游戏方法内
+		// game.game.bindKey(game.game.snake);
+		game.game.snake.init(document.querySelector(".map"));
+	//获取按键，监听绑定事件，注册回调函数
+		var csh=document.querySelector(".csh");//初始化
+		var start=document.querySelector(".start");//开始游戏
+		var pause=document.querySelector(".pause");//暂停游戏
+		var continueO=document.querySelector(".continue");//继续游戏
+		var restart=document.querySelector(".restart");//再来一次
+	//开始游戏
+		start.onclick=function() {
+			game.game.init();
+		};
+	//暂停游戏
+		pause.onclick=function() {
+			clearInterval(time.timeId);
+		};
+	//继续游戏
+		continueO.onclick=function() {
+			game.game.runShake(game.game.food,document.querySelector(".map"),game.game.snake);
+		};
+	//再来一次
+		restart.onclick=function() {
+			game.game=new Game(document.querySelector(".map"));
+			game.game.init();
+		};
+	//初始化
+		csh.onclick=function() {
+			clearInterval(time.timeId);
+			//单纯为了移除食物，非初始化食物显示食物前移除食物，利用闭包暴露出的移除食物函数
+			removefood();
+			game.game=new Game(document.querySelector(".map"));
+			//下面一句方法在画出初始化的小蛇前调用了，remove()“snake”闭包内部私有函数，清除了原留小蛇
+			game.game.snake.init(document.querySelector(".map"));
+		}
+</script>
+</body>
+</html>

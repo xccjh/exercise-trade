@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="uu">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li id="wu">5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+	</ul>
+</body>
+<script type="text/javascript">
+//获取任意一个父级元素的第一个子级元素
+	function getFirstElementChild(element) {
+		if (element.firstElementChild) {
+			return element.firstElementChild;
+		}else {
+			var node = element.firstChild;
+			while (node&&node.nodeType!=1) {
+				node=node.nextSibling;
+			}
+			return node;
+		}
+	};
+//获取任意一个父级元素的最后一个子级元素
+	function getLastElementChild(element) {
+		if (element.lastElementChild) {
+			return element.lastElementChild;
+		}else {
+			var node = element.lastChild;
+			while (node&&node.nodeType!=1) {
+				node=node.previousSibling;
+			}
+			return node;
+		}
+	};
+//获取任意一个元素的前一个元素
+	function getPreviousElementSibling(element) {
+		if (element.previousElementSibling) {
+			return element.previousElementSibling;
+		}else {
+			var node = element.previousSibling;
+			while (node&&node.nodeType!=1) {
+				node=node.previousSibling;
+			}
+			return node;
+		}
+	};
+//获取任意一个元素的后一个元素
+	function getNextElementSibling(element) {
+		if (element.nextElementSibling) {
+			return element.nextElementSibling;
+		}else {
+			var node = element.nextSibling;
+			while (node&&node.nodeType!=1) {
+				node=node.nextSibling;
+			}
+			return node;
+		}
+	};
+	console.log(getFirstElementChild(document.getElementById("uu")));
+	console.log(getLastElementChild(document.getElementById("uu")));
+	console.log(getPreviousElementSibling(document.getElementById("wu")));
+	console.log(getNextElementSibling(document.getElementById("wu")));
+	getNextElementSibling(document.getElementById("wu")).style.backgroundColor = 'red';
+</script>
+</html>

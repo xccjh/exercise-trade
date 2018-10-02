@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		div {
+			width: 300px;
+			height: 200px;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" name="" id="btn" value="渐变">
+	<div id="dv"></div>
+	<script type="text/javascript">
+		document.getElementById("btn").onclick=function() {
+			var opacity=10;
+			var timeID=setInterval(function() {
+			opacity--;
+			if (opacity==0) {
+				clearInterval(timeID);
+			}
+			document.getElementById("dv").style.opacity=opacity/10;
+			},20);
+		};
+	</script>
+</body>
+</html>
